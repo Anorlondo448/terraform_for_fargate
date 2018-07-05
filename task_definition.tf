@@ -2,13 +2,13 @@
 #
 # Task Definition
 #
-resource "aws_ecs_task_definition" "service" {
-  family                = "service"
-  container_definitions = "${file("task_definitions/service.json")}"
+resource "aws_ecs_task_definition" "fargate-demo" {
+  family                = "fargate-demo"
+  container_definitions = "${file("task_definitions/fargate-demo.json")}"
 
   volume {
-    name      = "service-storage"
-    host_path = "/ecs/service-storage"
+    name      = "fargate-demo-storage"
+    host_path = "/ecs/fargate-demo-storage"
   }
 
   placement_constraints {
@@ -17,8 +17,8 @@ resource "aws_ecs_task_definition" "service" {
   }
 }
 
-data "template_file" "service" {
-  template = "${file("task_definitions/service.json")}"
+data "template_file" "fargate-demo" {
+  template = "${file("task_definitions/fargate-demo.json")}"
 
   vars {
     aws_account_id = "${data.aws_caller_identity.current.account_id}"
