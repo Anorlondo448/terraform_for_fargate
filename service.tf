@@ -9,8 +9,5 @@ resource "aws_ecs_service" "fargate-demo" {
   desired_count   = 1
   launch_type     = "EC2"
 
-  placement_constraints {
-    type       = "memberOf"
-    expression = "attribute:ecs.availability-zone in [us-west-2a, us-west-2b]"
-  }
+  # iam_role        = "${aws_iam_role.fargate-demo-service.arn}"
 }
