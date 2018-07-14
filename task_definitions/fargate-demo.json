@@ -16,6 +16,7 @@
             }
         },
         "memory": 512,
-        "cpu": 512
+        "cpu": 512,
+        "network_mode": "awsvpc"
     }
 ]
