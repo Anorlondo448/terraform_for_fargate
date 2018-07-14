@@ -4,7 +4,7 @@
 #
 resource "aws_instance" "fargate-demo" {
   count                       = 1
-  instance_type               = "t2.small"
+  instance_type               = "t2.micro"
   ami                         = "ami-5253c32d"
   subnet_id                   = "${aws_subnet.public-1a.id}"
   associate_public_ip_address = true
