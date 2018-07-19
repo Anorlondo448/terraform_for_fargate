@@ -3,9 +3,9 @@
 # Security Group
 #
 
-resource "aws_security_group" "fargate-demo" {
-  vpc_id      = "${aws_vpc.fargate-demo.id}"
-  name        = "fargate-demo"
+resource "aws_security_group" "container-instance" {
+  vpc_id      = "${aws_vpc.ecs.id}"
+  name        = "container-instance"
   description = "container instance security group"
 
   ingress {
@@ -23,6 +23,6 @@ resource "aws_security_group" "fargate-demo" {
   }
 
   tags {
-    Name = "fargate-demo"
+    Name = "container-instance"
   }
 }
