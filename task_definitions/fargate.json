@@ -9,13 +9,13 @@
         "logConfiguration": {
             "logDriver": "awslogs",
             "options": {
-                "awslogs-group": "fargate-demo",
+                "awslogs-group": "fargate",
                 "awslogs-region": "us-east-1",
                 "awslogs-stream-prefix": "httpd"
             }
         },
         "memory": 512,
-        "cpu": 512,
+        "cpu": 256,
         "network_mode": "awsvpc"
     }
 ]

@@ -2,11 +2,11 @@
 #
 # Internet Gateway
 #
-resource "aws_internet_gateway" "fargate-demo" {
-  vpc_id     = "${aws_vpc.fargate-demo.id}"
-  depends_on = ["aws_vpc.fargate-demo"]
+resource "aws_internet_gateway" "ecs" {
+  vpc_id     = "${aws_vpc.ecs.id}"
+  depends_on = ["aws_vpc.ecs"]
 
   tags {
-    Name = "fargate-demo"
+    Name = "ecs"
   }
 }

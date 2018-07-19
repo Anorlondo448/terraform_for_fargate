@@ -2,8 +2,8 @@
 #
 # IAM Role
 #
-resource "aws_iam_role" "fargate-demo" {
-  name = "fargate-demo"
+resource "aws_iam_role" "container-instance" {
+  name = "container-instance"
 
   assume_role_policy = <<EOF
 {
@@ -22,24 +22,26 @@ resource "aws_iam_role" "fargate-demo" {
 EOF
 }
 
-resource "aws_iam_policy_attachment" "fargate-demo" {
-  name       = "fargate-demo"
-  roles      = ["${aws_iam_role.fargate-demo.name}"]
+resource "aws_iam_policy_attachment" "container-instance" {
+  name       = "container-instance"
+  roles      = ["${aws_iam_role.container-instance.name}"]
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceforEC2Role"
 }
 
-resource "aws_iam_instance_profile" "fargate-demo" {
-  name = "fargate-demo"
-  role = "${aws_iam_role.fargate-demo.name}"
+resource "aws_iam_instance_profile" "container-instance" {
+  name = "container-instance"
+  role = "${aws_iam_role.container-instance.name}"
 }
 
 ## for ECS fargate
-data "aws_iam_policy_document" "fargate-demo-fargate" {
+data "aws_iam_policy_document" "fargate" {
   statement {
     effect = "Allow"
 
     actions = [
       "ecs:*",
+      "cloudwatch:*",
+      "logs:*",
     ]
 
     resources = [
@@ -48,13 +50,13 @@ data "aws_iam_policy_document" "fargate-demo-fargate" {
   }
 }
 
-resource "aws_iam_policy" "fargate-demo-fargate" {
-  name   = "fargate-demo-fargate"
-  policy = "${data.aws_iam_policy_document.fargate-demo-fargate.json}"
+resource "aws_iam_policy" "fargate" {
+  name   = "fargate"
+  policy = "${data.aws_iam_policy_document.fargate.json}"
 }
 
-resource "aws_iam_role" "fargate-demo-fargate" {
-  name = "fargate-demo-fargate"
+resource "aws_iam_role" "fargate" {
+  name = "fargate"
 
   assume_role_policy = <<EOF
 {
@@ -64,7 +66,7 @@ resource "aws_iam_role" "fargate-demo-fargate" {
       "Action": "sts:AssumeRole",
       "Effect": "Allow",
       "Principal": {
-        "Service": "ecs.amazonaws.com"
+        "Service": "ecs-tasks.amazonaws.com"
       }
     }
   ]
@@ -72,7 +74,7 @@ resource "aws_iam_role" "fargate-demo-fargate" {
 EOF
 }
 
-resource "aws_iam_role_policy_attachment" "fargate-demo-fargate" {
-  role       = "${aws_iam_role.fargate-demo-fargate.name}"
-  policy_arn = "${aws_iam_policy.fargate-demo-fargate.arn}"
+resource "aws_iam_role_policy_attachment" "fargate" {
+  role       = "${aws_iam_role.fargate.name}"
+  policy_arn = "${aws_iam_policy.fargate.arn}"
 }
