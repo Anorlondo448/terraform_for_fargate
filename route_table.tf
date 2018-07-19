@@ -24,3 +24,8 @@ resource "aws_route_table_association" "public-1a" {
   subnet_id      = "${aws_subnet.public-1a.id}"
   route_table_id = "${aws_route_table.main.id}"
 }
+
+resource "aws_route_table_association" "public-1c" {
+  subnet_id      = "${aws_subnet.public-1c.id}"
+  route_table_id = "${aws_route_table.main.id}"
+}
