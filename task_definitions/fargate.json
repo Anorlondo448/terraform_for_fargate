@@ -1,7 +1,7 @@
 [
     {
-        "name": "httpd",
-        "image": "library/httpd",
+        "name": "nginx",
+        "image": "library/nginx",
         "essential": true,
         "portMappings": [{
             "containerPort": 80
@@ -11,7 +11,7 @@
             "options": {
                 "awslogs-group": "fargate",
                 "awslogs-region": "us-east-1",
-                "awslogs-stream-prefix": "httpd"
+                "awslogs-stream-prefix": "nginx"
             }
         },
         "memory": 512,
