@@ -29,21 +29,25 @@ data "template_file" "container-instance" {
 #
 # Task Definition for Fargate
 #
-resource "aws_ecs_task_definition" "fargate" {
-  family                = "fargate"
-  container_definitions = "${file("task_definitions/fargate.json")}"
+# resource "aws_ecs_task_definition" "fargate" {
+#   family                = "fargate"
+#   container_definitions = "${file("task_definitions/fargate.json")}"
 
-  execution_role_arn       = "${aws_iam_role.fargate.arn}"
-  requires_compatibilities = ["FARGATE"]
-  network_mode             = "awsvpc"
-  cpu                      = 256
-  memory                   = 512
-}
 
-data "template_file" "fargate" {
-  template = "${file("task_definitions/fargate.json")}"
+#   execution_role_arn       = "${aws_iam_role.fargate.arn}"
+#   requires_compatibilities = ["FARGATE"]
+#   network_mode             = "awsvpc"
+#   cpu                      = 256
+#   memory                   = 512
+# }
 
-  vars {
-    aws_account_id = "${data.aws_caller_identity.current.account_id}"
-  }
-}
+
+# data "template_file" "fargate" {
+#   template = "${file("task_definitions/fargate.json")}"
+
+
+#   vars {
+#     aws_account_id = "${data.aws_caller_identity.current.account_id}"
+#   }
+# }
+
